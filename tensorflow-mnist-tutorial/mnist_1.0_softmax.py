@@ -21,37 +21,38 @@ import math
 print("Tensorflow version " + tf.__version__)
 tf.set_random_seed(0)
 
-# neural network with 1 layer of 10 softmax neurons
+# 具有一层10个softmax神经元的神经网络
 #
 # · · · · · · · · · ·       (input data, flattened pixels)       X [batch, 784]        # 784 = 28 * 28
 # \x/x\x/x\x/x\x/x\x/    -- fully connected layer (softmax)      W [784, 10]     b[10]
 #   · · · · · · · ·                                              Y [batch, 10]
 
-# The model is:
+# 模型:
 #
 # Y = softmax( X * W + b)
-#              X: matrix for 100 grayscale images of 28x28 pixels, flattened (there are 100 images in a mini-batch)
-#              W: weight matrix with 784 lines and 10 columns
-#              b: bias vector with 10 dimensions
-#              +: add with broadcasting: adds the vector to each line of the matrix (numpy)
-#              softmax(matrix) applies softmax on each line
+#              X: 一百张28*28个像素的灰度图的矩阵，扁平化的（这一百张图片在一个最小批中）
+#              W: 784行10列的权重矩阵
+#              b: 10维的变差矢量
+#              +： 添加一个广播：添加矢量到矩阵的每行（numpy）
+#              softmax(matrix) 每行都应用softmax
 #              softmax(line) applies an exp to each value then divides by the norm of the resulting line
-#              Y: output matrix with 100 lines and 10 columns
+#              softmax(line) 当结果行除以模时，每个值应用一个指数
+#              Y: 输出一百行十列的矩阵
 
-# Download images and labels into mnist.test (10K images+labels) and mnist.train (60K images+labels)
+# 下载图片、标签到测试集（10k的图片和标签）和训练集（60k图片和标签）
 mnist = mnistdata.read_data_sets("data", one_hot=True, reshape=False)
 
-# input X: 28x28 grayscale images, the first dimension (None) will index the images in the mini-batch
+# 输入X：28*28的灰度图，第一维（None）将索引在最小批中的图片。
 X = tf.placeholder(tf.float32, [None, 28, 28, 1])
-# correct answers will go here
+# 正确答案将在这
 Y_ = tf.placeholder(tf.float32, [None, 10])
-# weights W[784, 10]   784=28*28
+# 权重 W[784, 10]   784=28*28
 W = tf.Variable(tf.zeros([784, 10]))
-# biases b[10]
+# 偏量 b[10]
 b = tf.Variable(tf.zeros([10]))
 
-# flatten the images into a single line of pixels
-# -1 in the shape definition means "the only possible dimension that will preserve the number of elements"
+# 扁平化图片到一个单行像素
+# -1 在形状定义中表示“保留元素数量的唯一可能纬度”。实践中，它将是最小批量的图像数。
 XX = tf.reshape(X, [-1, 784])
 
 # The model
