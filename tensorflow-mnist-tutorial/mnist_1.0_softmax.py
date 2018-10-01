@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# 本文件必须在根目录才能运行
+# 本文件必须在根目录才能运行.
 import tensorflow as tf
 import tensorflowvisu
 import mnistdata
