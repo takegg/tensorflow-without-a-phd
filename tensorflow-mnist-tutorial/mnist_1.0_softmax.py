@@ -23,7 +23,7 @@ tf.set_random_seed(0)
 
 # 具有一层10个softmax神经元的神经网络
 #
-# · · · · · · · · · ·       (input data, flattened pixels)       X [batch, 784]        # 784 = 28 * 28
+# · · · · · · · · · ·       (输入数据, 扁平化像素)       X [batch, 784]        # 784 = 28 * 28
 # \x/x\x/x\x/x\x/x\x/    -- fully connected layer (softmax)      W [784, 10]     b[10]
 #   · · · · · · · ·                                              Y [batch, 10]
 
