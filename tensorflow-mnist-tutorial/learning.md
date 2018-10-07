@@ -18,6 +18,9 @@
 ### [15.恭喜](#十五.恭喜)
 
 # 一.概述
+
+![img](/article_img/1-1.png)
+
 在此实验中, 你将学习如何构建和训练一个神经网络以识别手写数字。一路上，当你提高你的神经网络实现99%精确度时，你会同时发现深度学习专业人士训练其模型的有效训练工具。
 
 此实验使用MNIST数据集，六万个标记数字的集合，使几代博士一直忙了近二十年。你将使用少于一百行的Python/TensorFlow代码解决问题。
@@ -38,6 +41,30 @@
 ---
 
 # 二.操作：安装TensorFlow，获取实例代码
+
+在您的计算机上安装必要的软件：Python，TensorFlow和Matplotlib。完整的安装说明如下：<a href="https://github.com/GoogleCloudPlatform/tensorflow-without-a-phd/blob/master/tensorflow-mnist-tutorial/INSTALL.txt">INSTALL.txt</a>
+
+克隆GitHub存储库：
+
+```
+$ git clone https://github.com/GoogleCloudPlatform/tensorflow-without-a-phd.git
+$ cd tensorflow-without-a-phd/tensorflow-mnist-tutorial
+```
+
+> 本教程的示例代码位于tensorflow-mnist-tutorial文件夹中。该文件夹包含多个文件。你唯一能参加的是mnist_1.0_softmax.py。其他文件是用于加载数据和可视化结果的解决方案或支持代码。
+
+当您启动初始python脚本时，您应该看到训练过程的实时可视化：
+
+```
+$ python3 mnist_1.0_softmax.py
+```
+
+![img](/article_img/2-1.png)
+
+故障排除：如果您无法运行实时可视化，或者您更喜欢仅使用文本输出，则可以通过注释掉一行并取消注释另一行来取消激活可视化。请参阅文件底部的说明。
+
+> 为TensorFlow构建的可视化工具是TensorBoard。它的主要目标是比我们在这里需要的更加雄心勃勃。它的构建使您可以跟踪TensorFlow在远程服务器上分布式作业。对于我们在这个实验室中需要的matplotlib会做什么，我们得到实时动画作为奖励。但是，如果您使用TensorFlow认真工作，请务必查看TensorBoard。
+
 ---
 # 三.理论：训练神经网络
 我们首先将观察正在训练的神经网络。代码将在下一章节中介绍，所以你现在不用看。
@@ -90,7 +117,10 @@
 ---
 # 四.理论：单层神经网络
 
+![img](/article_img/4-1.png)
+
 手写数字在MNIST数据集中是28*28像素的灰度图。将它们分类的最简单方法是用28*28=784个像素作为单层神经网络的输入。
+
 ![img](/article_img/4-2.png)
 
 神经网络中的每个神经元对所有输入加权求和，添加一个称为“偏见”的常量，然后通过一些非线性激活函数提供结果。
@@ -115,7 +145,7 @@
 
 我们最终应用softmax激活函数和获取描述单层神经网络的公式，应用到100个图片：
 
-![img](/article_img/4-4.png)
+![img](/article_img/4-5.png)
 
 > 顺便说下，什么是“张量”？
 > 张量类似矩阵，但有随意数量的维度。一个维度的张量是一个向量。两个维度张量是矩阵。并且你可以用3、4、5或更多维度到张量。
