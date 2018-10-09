@@ -44,7 +44,7 @@ mnist = mnistdata.read_data_sets("data", one_hot=True, reshape=False)
 
 # 输入X：28*28的灰度图，第一维（None）将索引在小批量中的图片。
 X = tf.placeholder(tf.float32, [None, 28, 28, 1])
-# 正确答案将在这
+# 正确标签将在这
 Y_ = tf.placeholder(tf.float32, [None, 10])
 # 权重 W[784, 10]   784=28*28
 W = tf.Variable(tf.zeros([784, 10]))

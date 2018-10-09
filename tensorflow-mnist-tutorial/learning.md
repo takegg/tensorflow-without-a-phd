@@ -212,21 +212,21 @@ init = tf.initialize_all_variables()
 
 首先我们定义TensorFlow变量和占位符。变量是你希望训练算法为你确定的所有参数。在我们的例子中，我们的权重和偏见。
 
-占位符是在训练期间将要填充实际数据的参数，通常是训练图片。把握训练图片的张量的形状是[None,28,28,1]表示；
-- 28, 28, 1: 我们的图片是28x28x每个像素一个值（灰度）。彩色图片的最后一个数字是3，这里不是必须的。
+占位符是在训练期间将要填充实际数据的参数，通常是训练图片。持有训练图片的张量的形状是[None,28,28,1]表示；
+- 28, 28, 1: 我们的图片是28x28x每个像素值（一个灰度）。彩色图片的最后一个数字是3，这里不是必须的。
 - None：这个维度将是在小批量中图片的数量。它将在训练时知道。
 
 ### mnist_1.0_softmax.py
 ```Python
-# model
+# 模型
 Y = tf.nn.softmax(tf.matmul(tf.reshape(X, [-1, 784]), W) + b)
-# placeholder for correct labels
+# 用于正确标签的占位符
 Y_ = tf.placeholder(tf.float32, [None, 10])
 
-# loss function
+# 损失函数
 cross_entropy = -tf.reduce_sum(Y_ x tf.log(Y))
 
-# % of correct answers found in batch
+# 批量中找到正确答案的百分比
 is_correct = tf.equal(tf.argmax(Y,1), tf.argmax(Y_,1))
 accuracy = tf.reduce_mean(tf.cast(is_correct, tf.float32))
 ```
