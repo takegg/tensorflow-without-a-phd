@@ -277,7 +277,7 @@ for i in range(1000):
 # success ?
 a,c = sess.run([accuracy, cross_entropy], feed_dict=train_data)
 ```
-同样可以通过在feed_dict中提供测试而不是训练数据，在测试数据上计算（例如，没100次迭代执行此操作。这是一万个测试数字，所以要需要一些cpu时间）。
+同样可以通过在feed_dict中提供测试而不是训练数据，在测试数据上计算（例如，每100次迭代执行此操作。这是一万个测试数字，所以要需要一些cpu时间）。
 ```Python
 # success on test data ?
 test_data={X: mnist.test.images, Y_: mnist.test.labels}
