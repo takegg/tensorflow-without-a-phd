@@ -230,7 +230,7 @@ cross_entropy = -tf.reduce_sum(Y_ x tf.log(Y))
 is_correct = tf.equal(tf.argmax(Y,1), tf.argmax(Y_,1))
 accuracy = tf.reduce_mean(tf.cast(is_correct, tf.float32))
 ```
-第一行是单层神经网络的模型。该公式是我们在之前理论章节建立的那个。**tf.reshape**命令将我们的28x28的图片转化到784个像素到单矢量中。重塑命令中“-1”表示“计算机，计算出的，治理只是一种可能性”。实践中，它将是小批量中图片的数量。
+第一行是单层神经网络的模型。该公式是我们在之前理论章节建立的那个。**tf.reshape**命令将我们的28x28的图片转化到784个像素到单矢量中。重塑命令中“-1”表示“计算机，计算出的，这里只是一种可能性”。实践中，它将是小批量中图片的数量。
 
 然后，我们需要额外的占位符来提供训练标签，这些标签将与训练图片一起提供。
 
@@ -261,14 +261,14 @@ sess = tf.Session()
 sess.run(init)
 
 for i in range(1000):
-    # load batch of images and correct answers
+    # 加载批量图像和正确答案
     batch_X, batch_Y = mnist.train.next_batch(100)
     train_data={X: batch_X, Y_: batch_Y}
 
-    # train
+    # 训练
     sess.run(train_step, feed_dict=train_data)
 ```
-当我们要求TensorFlow最小化交叉熵时，获得此处执行的**train_step**。这是计算梯度并更新权重和偏见的步骤。
+当我们要求TensorFlow最小化交叉熵时，获得此处执行的**train_step**。这是计算梯度并更新权重和偏见的步数。
 
 最后，我们还需要计算几个值，以便我们能够了解模型的执行情况。
 
@@ -277,14 +277,14 @@ for i in range(1000):
 # success ?
 a,c = sess.run([accuracy, cross_entropy], feed_dict=train_data)
 ```
-同样可以在饲料字典中通过提供测试而不是训练数据，在测试数据上计算（例如，没100次迭代执行此操作。那里是一万个测试数字，所以要需要一些cpu时间）。
+同样可以通过在feed_dict中提供测试而不是训练数据，在测试数据上计算（例如，没100次迭代执行此操作。这是一万个测试数字，所以要需要一些cpu时间）。
 ```Python
 # success on test data ?
 test_data={X: mnist.test.images, Y_: mnist.test.labels}
 a,c = sess.run([accuracy, cross_entropy], feed=test_data)
 ```
 > TensorFlow和Numpy是好友：要准备计算图时，你仅操作TensorFlow张量和命令，如**tf.matmul, tf.reshape**......等等。<br/>
-无论如何，尽快执行**Session.run**命令，它返回的值是些Numpy张量，即**numpy.ndarray**对象，Numpy和所有基于它的科学计算库都可以使用它。这就是为此实验构建的实时可视化，使用matploglib，这是一个基于Numpy的标准Python会图库。
+无论如何，只要执行**Session.run**命令，它返回的值是些Numpy张量，即Numpy可以使用的**numpy.ndarray**对象以及基于它的所有科学编译库。这就是为此实验构建的实时可视化，使用matploglib，这是一个基于Numpy的标准Python绘图库。
 
 这个简单的模型已经识别92%的数字。不错，但你现在将显著改善它。
 ![img](./article_img/5-3.png)
