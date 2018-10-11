@@ -131,12 +131,13 @@ print("max test accuracy: " + str(datavis.get_max_test_accuracy()))
 # (在所有运行中，如果使用sigmoids，所有biases都初始化为0，如果使用RELUs，除去初始化为0的最后一个所有biases初始化为0.1)
 
 ## 学习速率为0.003,10k的迭代
-# 完成测试准确率为0.9788(sigmoid-缓慢开始，训练cross-entropy在结束时不稳定)
-# 完成测试准确率为0.9825（relu-在第一次1500个迭代中在0.97以上，但曲线嘈杂）
+# 最终测试准确率为0.9788(sigmoid-缓慢开始，训练cross-entropy在结束时不稳定)
+# 最终测试准确率为0.9825（relu-在第一次1500个迭代中在0.97以上，但曲线嘈杂）
 
-## now with learning rate = 0.0001, 10K iterations
-# final test accuracy = 0.9722 (relu - slow but smooth curve, would have gone higher in 20K iterations)
+## 现在已0.0001的学习速率，10k的迭代
+# 最终测试准确率为0.9722(relu-慢但是曲线平滑，在20k的迭代中将更高)
 
-## decaying learning rate from 0.003 to 0.0001 decay_speed 2000, 10K iterations
-# final test accuracy = 0.9746 (sigmoid - training cross-entropy not stabilised)
+## 学习速率衰减从0.003到0.0001，衰减速率为2000,10k迭代。
+# 最终测试准确率为0.9746(sigmoid-训练交叉熵不稳定)
 # final test accuracy = 0.9824 (relu - training set fully learned, test accuracy stable)
+# 最终测试准确率为0.9824(relu-训练集充分学习，测试集准确率稳定)
