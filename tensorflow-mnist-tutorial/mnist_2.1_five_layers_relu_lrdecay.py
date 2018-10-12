@@ -20,7 +20,7 @@ import mnistdata
 print("Tensorflow version " + tf.__version__)
 tf.set_random_seed(0)
 
-# neural network with 5 layers
+# 5层神经网络
 #
 # · · · · · · · · · ·          (input data, flattened pixels)       X [batch, 784]   # 784 = 28*28
 # \x/x\x/x\x/x\x/x\x/       -- fully connected layer (relu)         W1 [784, 200]      B1[200]
@@ -35,16 +35,18 @@ tf.set_random_seed(0)
 #          ·                                                        Y5 [batch, 10]
 
 # Download images and labels into mnist.test (10K images+labels) and mnist.train (60K images+labels)
+# 下载图片和标签到mnist.test(10k图片+标签)和mnist.train(60k图片+标签)
 mnist = mnistdata.read_data_sets("data", one_hot=True, reshape=False)
 
-# input X: 28x28 grayscale images, the first dimension (None) will index the images in the mini-batch
+# 输入X：28乘28灰度图，第一维(None)将索引mini-batch中的图片。
 X = tf.placeholder(tf.float32, [None, 28, 28, 1])
-# correct answers will go here
+# 正确答案将在这
 Y_ = tf.placeholder(tf.float32, [None, 10])
-# step for variable learning rate
+# 学习速率可变的step
 step = tf.placeholder(tf.int32)
 
 # five layers and their number of neurons (tha last layer has 10 softmax neurons)
+# 5层和神经元的数量(最后一次后10个softmax神经元)
 L = 200
 M = 100
 N = 60
