@@ -34,7 +34,6 @@ tf.set_random_seed(0)
 #         \x/               -- fully connected layer (softmax)      W5 [30, 10]        B5[10]
 #          ·                                                        Y5 [batch, 10]
 
-# Download images and labels into mnist.test (10K images+labels) and mnist.train (60K images+labels)
 # 下载图片和标签到mnist.test(10k图片+标签)和mnist.train(60k图片+标签)
 mnist = mnistdata.read_data_sets("data", one_hot=True, reshape=False)
 
@@ -45,7 +44,6 @@ Y_ = tf.placeholder(tf.float32, [None, 10])
 # 学习速率可变的step
 step = tf.placeholder(tf.int32)
 
-# five layers and their number of neurons (tha last layer has 10 softmax neurons)
 # 5层和神经元的数量(最后一次后10个softmax神经元)
 L = 200
 M = 100
