@@ -44,14 +44,13 @@ Y_ = tf.placeholder(tf.float32, [None, 10])
 # step for variable learning rate
 step = tf.placeholder(tf.int32)
 
-# three convolutional layers with their channel counts, and a
-# fully connected layer (tha last layer has 10 softmax neurons)
-K = 4  # first convolutional layer output depth
-L = 8  # second convolutional layer output depth
-M = 12  # third convolutional layer
-N = 200  # fully connected layer
+# 三个convolutional层及其通道数，和一个全连接层(最后一层有10个softmax神经元)
+K = 4  # 第一个convolutional层输出深度
+L = 8  # 第二个convolutional层输出深度
+M = 12  # 第三convoluttional层
+N = 200  # 全连接层
 
-W1 = tf.Variable(tf.truncated_normal([5, 5, 1, K], stddev=0.1))  # 5x5 patch, 1 input channel, K output channels
+W1 = tf.Variable(tf.truncated_normal([5, 5, 1, K], stddev=0.1))  # 5×5的块，1个输入通道，k个输出通道
 B1 = tf.Variable(tf.ones([K])/10)
 W2 = tf.Variable(tf.truncated_normal([5, 5, K, L], stddev=0.1))
 B2 = tf.Variable(tf.ones([L])/10)
@@ -71,7 +70,7 @@ Y2 = tf.nn.relu(tf.nn.conv2d(Y1, W2, strides=[1, stride, stride, 1], padding='SA
 stride = 2  # output is 7x7
 Y3 = tf.nn.relu(tf.nn.conv2d(Y2, W3, strides=[1, stride, stride, 1], padding='SAME') + B3)
 
-# reshape the output from the third convolution for the fully connected layer
+# 为全连接层从第三个convolutional变维输出矩阵
 YY = tf.reshape(Y3, shape=[-1, 7 * 7 * M])
 
 Y4 = tf.nn.relu(tf.matmul(YY, W4) + B4)
@@ -84,7 +83,7 @@ Y = tf.nn.softmax(Ylogits)
 cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits=Ylogits, labels=Y_)
 cross_entropy = tf.reduce_mean(cross_entropy)*100
 
-# accuracy of the trained model, between 0 (worst) and 1 (best)
+# 训练模型准确度在0(最差)和1(最好)之间
 correct_prediction = tf.equal(tf.argmax(Y, 1), tf.argmax(Y_, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
@@ -95,7 +94,7 @@ I = tensorflowvisu.tf_format_mnist_images(X, Y, Y_)
 It = tensorflowvisu.tf_format_mnist_images(X, Y, Y_, 1000, lines=25)
 datavis = tensorflowvisu.MnistDataVis()
 
-# training step, the learning rate is a placeholder
+# 训练步骤，学习速率是一个占位符
 # the learning rate is: # 0.0001 + 0.003 * (1/e)^(step/2000)), i.e. exponential decay from 0.003->0.0001
 lr = 0.0001 +  tf.train.exponential_decay(0.003, step, 2000, 1/math.e)
 train_step = tf.train.AdamOptimizer(lr).minimize(cross_entropy)

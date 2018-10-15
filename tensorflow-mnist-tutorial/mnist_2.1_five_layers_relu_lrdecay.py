@@ -41,7 +41,7 @@ mnist = mnistdata.read_data_sets("data", one_hot=True, reshape=False)
 X = tf.placeholder(tf.float32, [None, 28, 28, 1])
 # 正确答案将在这
 Y_ = tf.placeholder(tf.float32, [None, 10])
-# 学习速率可变的step
+# 可变学习速率的step
 step = tf.placeholder(tf.int32)
 
 # 5层和神经元的数量(最后一次后10个softmax神经元)

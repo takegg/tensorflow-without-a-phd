@@ -528,7 +528,7 @@ W = tf.Variable(tf.truncated_normal([4, 4, 3, 2], stddev=0.1))
 B = tf.Variable(tf.ones([2])/10) # 2 is the number of output channels
 ```
 
-可以使用tf.nn.conv2d函数在TensorFlow中实现convolutional层，该函数使用提供的权重在两个方向上扫描输入的图像。这只是神经元的加权和部分。您仍然需要添加偏差并通过激活函数提供结果。
+可以使用tf.nn.conv2d函数在TensorFlow中实现convolutional层，使用该函数提供的权重在两个方向上扫描输入的图像。这只是神经元的加权和部分。您仍然需要添加偏差并通过激活函数提供结果。
 
 ```Python
 stride = 1  # output is still 28x28
