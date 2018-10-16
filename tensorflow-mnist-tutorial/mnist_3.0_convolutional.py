@@ -50,7 +50,7 @@ L = 8  # 第二个convolutional层输出深度
 M = 12  # 第三convoluttional层
 N = 200  # 全连接层
 
-W1 = tf.Variable(tf.truncated_normal([5, 5, 1, K], stddev=0.1))  # 5×5的块，1个输入通道，k个输出通道
+W1 = tf.Variable(tf.truncated_normal([5, 5, 1, K], stddev=0.1))  # 5×5的patch，1个输入通道，k个输出通道
 B1 = tf.Variable(tf.ones([K])/10)
 W2 = tf.Variable(tf.truncated_normal([5, 5, K, L], stddev=0.1))
 B2 = tf.Variable(tf.ones([L])/10)

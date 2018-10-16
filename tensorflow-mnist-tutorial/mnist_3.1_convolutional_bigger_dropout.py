@@ -41,21 +41,21 @@ mnist = mnistdata.read_data_sets("data", one_hot=True, reshape=False)
 X = tf.placeholder(tf.float32, [None, 28, 28, 1])
 # correct answers will go here
 Y_ = tf.placeholder(tf.float32, [None, 10])
-# variable learning rate
+# 学习速率变量
 lr = tf.placeholder(tf.float32)
 # Probability of keeping a node during dropout = 1.0 at test time (no dropout) and 0.75 at training time
+# 保持一个节点在测试期间(no dropout)dropout=1.0和在训练时为0.75的概率
 pkeep = tf.placeholder(tf.float32)
 # step for variable learning rate
 step = tf.placeholder(tf.int32)
 
-# three convolutional layers with their channel counts, and a
-# fully connected layer (the last layer has 10 softmax neurons)
-K = 6  # first convolutional layer output depth
-L = 12  # second convolutional layer output depth
-M = 24  # third convolutional layer
-N = 200  # fully connected layer
+# 三个convolutional层及其通道数，和一个全连接层(最后一层有10个softmax神经元)
+K = 6  # 第一个convolutional层输出深度
+L = 12  # 第二个convolutional层输出深度
+M = 24  # 第三convoluttional层
+N = 200  # 全连接层
 
-W1 = tf.Variable(tf.truncated_normal([6, 6, 1, K], stddev=0.1))  # 6x6 patch, 1 input channel, K output channels
+W1 = tf.Variable(tf.truncated_normal([6, 6, 1, K], stddev=0.1))  # 6x6 的patch，1个输入通道，k个输出通道
 B1 = tf.Variable(tf.constant(0.1, tf.float32, [K]))
 W2 = tf.Variable(tf.truncated_normal([5, 5, K, L], stddev=0.1))
 B2 = tf.Variable(tf.constant(0.1, tf.float32, [L]))
@@ -144,16 +144,17 @@ datavis.animate(training_step, 10001, train_data_update_freq=20, test_data_updat
 
 print("max test accuracy: " + str(datavis.get_max_test_accuracy()))
 
-## All runs 10K iterations:
+## 所有运行10k迭代：
 # layers 4 8 12 200, patches 5x5str1 5x5str2 4x4str2 best 0.989
 # layers 4 8 12 200, patches 5x5str1 4x4str2 4x4str2 best 0.9892
-# layers 6 12 24 200, patches 5x5str1 4x4str2 4x4str2 best 0.9908 after 10000 iterations but going downhill from 5000 on
-# layers 6 12 24 200, patches 5x5str1 4x4str2 4x4str2 dropout=0.75 best 0.9922  (but above 0.99 after 1400 iterations only)
+# layers 6 12 24 200, patches 5x5str1 4x4str2 4x4str2 best 0.9908 after 10000 iterations ,但从5000次开始走下坡路
+# layers 6 12 24 200, patches 5x5str1 4x4str2 4x4str2 dropout=0.75 best 0.9922  (但仅在1400次迭代后高于0.99)
 # layers 4 8 12 200, patches 5x5str1 4x4str2 4x4str2 dropout=0.75, best 0.9914 at 13700 iterations
-# layers 9 16 25 200, patches 5x5str1 4x4str2 4x4str2 dropout=0.75, best 0.9918 at 10500 (but 0.99 at 1500 iterations already, 0.9915 at 5800)
-# layers 9 16 25 300, patches 5x5str1 4x4str2 4x4str2 dropout=0.75, best 0.9916 at 5500 iterations (but 0.9903 at 1200 iterations already)
+# layers 9 16 25 200, patches 5x5str1 4x4str2 4x4str2 dropout=0.75, best 0.9918 at 10500 (但在1500次迭代时已经为0.99，5800次时为0.9915)
+# layers 9 16 25 300, patches 5x5str1 4x4str2 4x4str2 dropout=0.75, best 0.9916 at 5500 iterations (但已经在1200次迭代时为0.9903)
 # attempts with 2 fully-connected layers: no better 300 and 100 neurons, dropout 0.75 and 0.5, 6x6 5x5 4x4 patches no better
 # layers 6 12 24 200, patches 6x6str1 5x5str2 4x4str2 no dropout best 0.9906 after 3100 iterations (avove 0.99 from iteration 1400)
-#*layers 6 12 24 200, patches 6x6str1 5x5str2 4x4str2 dropout=0.75 best 0.9928 after 12800 iterations (but consistently above 0.99 after 1300 iterations only, 0.9916 at 2300 iterations, 0.9921 at 5600, 0.9925 at 20000)
+#*layers 6 12 24 200, patches 6x6str1 5x5str2 4x4str2 dropout=0.75 best 0.9928 after 12800 iterations (但仅在1300次迭代后一直高于0.99, 0.9916 at 2300 iterations, 0.9921 at 5600, 0.9925 at 20000)
 #*same with dacaying learning rate 0.003-0.0001-2000: best 0.9931 (on other runs max accuracy 0.9921, 0.9927, 0.9935, 0.9929, 0.9933)
+#*同样的学习速率衰减0.003-0.0001-2000：最好的为0.9931(在其他运行上最大准确率为0.9921,0.9927, 0.9935, 0.9929, 0.9933)
 
