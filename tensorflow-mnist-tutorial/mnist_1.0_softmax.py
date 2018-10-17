@@ -42,7 +42,6 @@ tf.set_random_seed(0)
 # 下载图片、标签到测试集（10k的图片和标签）和训练集（60k图片和标签）
 mnist = mnistdata.read_data_sets("data", one_hot=True, reshape=False)
 
-print(mnist)
 
 # 输入X：28*28的灰度图，第一维（None）将索引在小批量中的图片。
 X = tf.placeholder(tf.float32, [None, 28, 28, 1])
