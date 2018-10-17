@@ -15,32 +15,34 @@
 
 # 本文件必须在根目录才能运行.
 import tensorflow as tf
-import tensorflowvisu # 可视化
-import mnistdata # mnist数据集
+import tensorflowvisu # 可视化(自定义模块)
+import mnistdata # mnist数据集(自定义模块)
 import math # 数学方法
 print("Tensorflow version " + tf.__version__)
 tf.set_random_seed(0)
 
-# 具有一层10个softmax神经元的神经网络
+# 一层具有10个softmax神经元的神经网络
 #
-# · · · · · · · · · ·       (输入数据, 扁平化像素)       X [batch, 784]        # 784 = 28 * 28
+# · · · · · · · · · ·       (输入数据, 扁平化像素)                X [batch, 784]        # 784 = 28 * 28
 # \x/x\x/x\x/x\x/x\x/    -- fully connected layer (softmax)      W [784, 10]     b[10]
 #   · · · · · · · ·                                              Y [batch, 10]
 
 # 模型:
 #
 # Y = softmax( X * W + b)
-#              X: 一百张28*28个像素的灰度图的矩阵，扁平化的（这一百张图片在一个最小批中）
+#              X: 一百张28*28个像素的灰度图的矩阵，扁平化的（这一百张图片在一个小批量中）
 #              W: 784行10列的权重矩阵
-#              b: 10维的变差矢量
+#              b: 10维的bias矢量
 #              +： 添加一个广播：添加矢量到矩阵的每行（numpy）
 #              softmax(matrix) 每行都应用softmax
 #              softmax(line) applies an exp to each value then divides by the norm of the resulting line
-#              softmax(line) 当结果行除以模时，每个值应用一个指数
+#              softmax(line) 对每个值应用指数，然后除以结果行的范数
 #              Y: 输出一百行十列的矩阵
 
 # 下载图片、标签到测试集（10k的图片和标签）和训练集（60k图片和标签）
 mnist = mnistdata.read_data_sets("data", one_hot=True, reshape=False)
+
+print(mnist)
 
 # 输入X：28*28的灰度图，第一维（None）将索引在小批量中的图片。
 X = tf.placeholder(tf.float32, [None, 28, 28, 1])
