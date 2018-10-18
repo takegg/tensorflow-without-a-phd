@@ -43,8 +43,8 @@ tf.set_random_seed(0)
 mnist = mnistdata.read_data_sets("data", one_hot=True, reshape=False)
 
 
-# 输入X：28*28的灰度图，第一维（None）将索引在小批量中的图片。
-X = tf.placeholder(tf.float32, [None, 28, 28, 1])
+# 输入X：28*28的灰度图，第一维（None）将索引在小批量中的图片。形状数组代表每个维度元素数量
+X = tf.placeholder(tf.float32, [None, 28, 28, 1]) #表示None×28行×28列×1个颜色个值
 # 正确标签将在这
 Y_ = tf.placeholder(tf.float32, [None, 10])
 # 权重 W[784, 10]   784=28*28
@@ -53,7 +53,7 @@ W = tf.Variable(tf.zeros([784, 10]))
 b = tf.Variable(tf.zeros([10]))
 
 # 扁平化图片到一个单行像素
-# -1 在形状定义中表示“保留元素数量的唯一可能纬度”。实践中，它将是最小批量的图像数。
+# -1 在形状定义中表示“保留元素数量的唯一可能维度”。实践中，它将是小批量的图像数。
 XX = tf.reshape(X, [-1, 784])
 
 # 模型
