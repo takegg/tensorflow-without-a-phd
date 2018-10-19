@@ -58,6 +58,7 @@ XX = tf.reshape(X, [-1, 784])
 
 # 模型
 Y = tf.nn.softmax(tf.matmul(XX, W) + b)
+# 笔记：Y是784行10列的矩阵，每行为每张图10个数字的概率。
 
 # 损失函数: cross-entropy = - sum( Y_i * log(Yi) )
 #                           Y:计算后输出向量(预测标签)
@@ -71,11 +72,12 @@ cross_entropy = -tf.reduce_mean(Y_ * tf.log(Y)) * 1000.0  # 一批一百张图�
                                                           # 乘10因为平均值包含一个不需要的除以10
 
 # 训练模型的精确度介于0（坏）和1（好）之间
-correct_prediction = tf.equal(tf.argmax(Y, 1), tf.argmax(Y_, 1)) #正确预测
-accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32)) #精确度
+correct_prediction = tf.equal(tf.argmax(Y, 1), tf.argmax(Y_, 1)) #正确预测(根据每个元素是否相等返回一个布尔向量)
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32)) #精确度(整体平均值)
 
 # 训练中，学习速率=0.005
 train_step = tf.train.GradientDescentOptimizer(0.005).minimize(cross_entropy)
+# 笔记，用梯度下降优化器来求最小交叉熵。
 
 # matplotlib可视化
 allweights = tf.reshape(W, [-1])
@@ -85,9 +87,9 @@ It = tensorflowvisu.tf_format_mnist_images(X, Y, Y_, 1000, lines=25)  # 1000 ima
 datavis = tensorflowvisu.MnistDataVis()
 
 # 初始化
-init = tf.global_variables_initializer()
-sess = tf.Session()
-sess.run(init)
+init = tf.global_variables_initializer() #笔记：初始化全局变量并返回
+sess = tf.Session() # 笔记：生成会话。
+sess.run(init) # 笔记：开始运行，主要代码到此结束。
 
 
 # 你可以在循环中调用此函数以训练模型，一次一百张图
