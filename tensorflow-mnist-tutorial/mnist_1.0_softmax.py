@@ -60,8 +60,8 @@ XX = tf.reshape(X, [-1, 784])
 Y = tf.nn.softmax(tf.matmul(XX, W) + b)
 
 # 损失函数: cross-entropy = - sum( Y_i * log(Yi) )
-#                           Y:计算后输出向量
-#                           Y_：所需要输出的向量
+#                           Y:计算后输出向量(预测标签)
+#                           Y_：所需要输出的向量(正确标签)
 
 # 交叉熵
 # 以log获取每个元素的log，以元素乘以张量元素
