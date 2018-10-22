@@ -21,27 +21,21 @@ sys.path.append("mlengine")
 from trainer.task import load_mnist_data  # import from mlengine/trainer/task.py
 from trainer.task import load_dataset     # import from mlengine/trainer/task.py
 
-# This loads entire dataset to an in-memory numpy array.
-# This uses tf.data.Dataset to avoid duplicating code.
-# Normally, if you already have a tf.data.Dataset, loading
-# it to memory is not useful. The goal here is educational:
-# teach about neural network basics without having to
-# explain tf.data.Dataset now. The concept will be introduced
-# later.
-# The proper way of using tf.data.Dataset is to call
-# features, labels = tf_dataset.make_one_shot_iterator().get_next()
-# and then to use "features" and "labels" in your Tensorflow
-# model directly. These tensorflow nodes, when executed, will
-# automatically trigger the loading of the next batch of data.
+# 这会将整个数据集加载到内存中的numpy数组中
+# 这使用tf.data.Dataset来避免重复代码。
+# 通常，如果您已经有tf.data.Dataset，请加载
+# 它对内存没用。 这里的目标是教育：
+# 教授神经网络基础知识，而不必现在解释tf.data.Dataset。这个概念将在后面介绍。
+# 使用tf.data.Dataset的正确方法是调用特征，labels = tf_dataset.make_one_shot_iterator().get_next（）然后直接在你的Tensorflow模型中使用“features”和“labels”。 这些tensorflow节点在执行时将自动触发下一批数据的加载。
 # The sample that uses tf.data.Dataset correctly is in mlengine/trainer.
 
-class MnistData(object):
+class MnistData(object): # 定义MnistData类，继承自object类，
 
-    def __init__(self, tf_dataset, one_hot, reshape):
+    def __init__(self, tf_dataset, one_hot, reshape): # 定义类用的内部方法__init__，用于绑定对象属性，self将指向实例。
         self.pos = 0
         self.images = None
         self.labels = None
-        # load entire Dataset into memory by chunks of 10000
+        # 通过10000个chunk将整个数据集加载到内存中
         tf_dataset = tf_dataset.batch(10000)
         tf_dataset = tf_dataset.repeat(1)
         features, labels = tf_dataset.make_one_shot_iterator().get_next()
@@ -67,10 +61,10 @@ class MnistData(object):
         return res
 
 
-class Mnist(object):
+class Mnist(object): # Mnist类
     def __init__(self, train_dataset, test_dataset, one_hot, reshape):
-        self.train = MnistData(train_dataset, one_hot, reshape)
-        self.test = MnistData(test_dataset, one_hot, reshape)
+        self.train = MnistData(train_dataset, one_hot, reshape) # MnistData的训练实例
+        self.test = MnistData(test_dataset, one_hot, reshape) # MnistData的测试实例
 
 
 def read_data_sets(data_dir, one_hot, reshape):

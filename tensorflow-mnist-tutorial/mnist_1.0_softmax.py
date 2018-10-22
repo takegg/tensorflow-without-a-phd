@@ -35,7 +35,6 @@ tf.set_random_seed(0)
 #              b: 10维的bias矢量
 #              +： 添加一个广播：添加矢量到矩阵的每行（numpy）
 #              softmax(matrix) 每行都应用softmax
-#              softmax(line) applies an exp to each value then divides by the norm of the resulting line
 #              softmax(line) 对每个值应用指数，然后除以结果行的范数
 #              Y: 输出一百行十列的矩阵
 
@@ -96,7 +95,7 @@ sess.run(init) # 笔记：开始运行，主要代码到此结束。
 def training_step(i, update_test_data, update_train_data):
 
     # 对一百张图带一百个标签的批次进行训练
-    batch_X, batch_Y = mnist.train.next_batch(100)
+    batch_X, batch_Y = mnist.train.next_batch(100) # batch_X：图片，batch_Y：标签
 
     # 计算可视化的训练值
     if update_train_data:
@@ -106,7 +105,6 @@ def training_step(i, update_test_data, update_train_data):
         datavis.update_image1(im)
         print(str(i) + ": accuracy:" + str(a) + " loss: " + str(c))
 
-    # compute test values for visualisation
     # 计算可视化的测试值
     if update_test_data:
         a, c, im = sess.run([accuracy, cross_entropy, It], feed_dict={X: mnist.test.images, Y_: mnist.test.labels})
@@ -126,5 +124,4 @@ datavis.animate(training_step, iterations=2000+1, train_data_update_freq=10, tes
 
 print("max test accuracy: " + str(datavis.get_max_test_accuracy()))
 
-# final max test accuracy = 0.9268 (10K iterations). Accuracy should peak above 0.92 in the first 2000 iterations.
-# 最终最大测试精度=0.9268（10k次迭代）。在前两千次迭代中精确度达到0.92以上。
+# 最终最大测试精度=0.9268（10k次迭代）。在前两千次迭代中精确度达到0.92峰值。
