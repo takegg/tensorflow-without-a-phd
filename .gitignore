@@ -19,3 +19,4 @@ tensorflow-planespotting/sample_data
 .vscode/settings.json
 tensorflow-mnist-tutorial/.vscode/settings.json
 tensorflow-mnist-tutorial/.DS_Store
+tensorflow-mnist-tutorial/test.py
