@@ -66,7 +66,7 @@ B4 = tf.Variable(tf.ones([O])/10)
 W5 = tf.Variable(tf.truncated_normal([O, 10], stddev=0.1))
 B5 = tf.Variable(tf.zeros([10]))
 
-# 在每层上带dropout的模型
+# 在每层上带dropout的模型，专治overfitting
 XX = tf.reshape(X, [-1, 28*28])
 
 Y1 = tf.nn.relu(tf.matmul(XX, W1) + B1)
