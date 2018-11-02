@@ -27,15 +27,15 @@ mnist = mnistdata.read_data_sets("data", one_hot=True, reshape=False)
 #
 # · · · · · · · · · ·      (input data, 1-deep)                 X [batch, 28, 28, 1]
 # @ @ @ @ @ @ @ @ @ @   -- conv. layer 5x5x1=>4 stride 1        W1 [5, 5, 1, 4]        B1 [4]
-# ∶∶∶∶∶∶∶∶∶∶∶∶∶∶∶∶∶∶∶                                           Y1 [batch, 28, 28, 4]
+# ∶∶∶∶∶∶∶∶∶∶∶∶∶∶∶∶∶∶∶                                                   Y1 [batch, 28, 28, 4]
 #   @ @ @ @ @ @ @ @     -- conv. layer 5x5x4=>8 stride 2        W2 [5, 5, 4, 8]        B2 [8]
-#   ∶∶∶∶∶∶∶∶∶∶∶∶∶∶∶                                             Y2 [batch, 14, 14, 8]
+#   ∶∶∶∶∶∶∶∶∶∶∶∶∶∶∶                                                    Y2 [batch, 14, 14, 8]
 #     @ @ @ @ @ @       -- conv. layer 4x4x8=>12 stride 2       W3 [4, 4, 8, 12]       B3 [12]
-#     ∶∶∶∶∶∶∶∶∶∶∶                                               Y3 [batch, 7, 7, 12] => reshaped to YY [batch, 7*7*12]
+#     ∶∶∶∶∶∶∶∶∶∶∶                                                    Y3 [batch, 7, 7, 12] => reshaped to YY [batch, 7*7*12]
 #      \x/x\x\x/        -- fully connected layer (relu)         W4 [7*7*12, 200]       B4 [200]
 #       · · · ·                                                 Y4 [batch, 200]
 #       \x/x\x/         -- fully connected layer (softmax)      W5 [200, 10]           B5 [10]
-#        · · ·                                                  Y [batch, 10]
+#        · · ·                                                  Y  [batch, 10]
 
 # input X: 28x28 grayscale images, the first dimension (None) will index the images in the mini-batch
 X = tf.placeholder(tf.float32, [None, 28, 28, 1])
@@ -45,9 +45,9 @@ Y_ = tf.placeholder(tf.float32, [None, 10])
 step = tf.placeholder(tf.int32)
 
 # 三个convolutional层及其通道数，和一个全连接层(最后一层有10个softmax神经元)
-K = 4  # 第一个convolutional层输出深度
-L = 8  # 第二个convolutional层输出深度
-M = 12  # 第三convoluttional层
+K = 4    # 第一个convolutional层输出深度
+L = 8    # 第二个convolutional层输出深度
+M = 12   # 第三convoluttional层
 N = 200  # 全连接层
 
 W1 = tf.Variable(tf.truncated_normal([5, 5, 1, K], stddev=0.1))  # 5×5的patch，1个输入通道，k个输出通道
