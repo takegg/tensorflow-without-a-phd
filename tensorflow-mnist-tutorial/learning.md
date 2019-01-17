@@ -19,7 +19,7 @@
 
 # 一.概述
 
-<img src="./article_img/1-1.png/">
+<img width='50%' src="./article_img/1-1.png/">
 
 在此实验中, 你将学习如何构建和训练一个神经网络以识别手写数字。一路上，当你提高你的神经网络实现99%精确度时，你会同时发现深度学习专业人士训练其模型的有效训练工具。
 
@@ -60,7 +60,7 @@ $ cd tensorflow-without-a-phd/tensorflow-mnist-tutorial
 $ python3 mnist_1.0_softmax.py
 ```
 
-<img src="./article_img/2-1.png/">
+<img width='50%' src="./article_img/2-1.png/">
 
 故障排除：如果您无法运行实时可视化，或者您更喜欢仅使用文本输出，则可以通过注释掉一行并取消注释另一行来取消激活可视化。请参阅文件底部的说明。
 
@@ -75,25 +75,25 @@ $ python3 mnist_1.0_softmax.py
 
 一起去通过逐个观察六个可视化面板，看看训练一个神经网络需要什么。
 
-<img src="./article_img/training-digital.png/">
+<img width='50%' src="./article_img/training-digital.png/">
 
-这里你将看到训练数字被送入训练循环，一次一百个。你也将看到如果神经网络在当前训练状态中，是否识别出它们（白色背景）或对它们错误分类（红色背景在左侧小字中代有正确标签，错误计算的标签在每个数字的右侧）。
+这里你将看到训练数字被送入训练循环，一次一百个。你也将看到如果神经网络在当前训练状态中，是否识别出它们（白色背景）或对它们错误分类（红色背景在左侧小字中带有正确标签，错误计算的标签在每个数字的右侧）。
 
 > 这五万个在此数据集中的训练数字。我们每次迭代时将一百个数字送入训练循环，这样系统将在五百次迭代后看到所有训练数字。我们称之为“时期”。
 
-<img src="./article_img/1-2.png/">
+<img width='50%' src="./article_img/1-2.png/">
 
 在真实条件下测试识别的质量，我们必须使用系统训练中未曾见过的的数字。否则，它可以用心学习所有训练数字，但仍然无法识别我刚才写的“8”。MNIST数据集包含一万个测试数字。在这里，你可以看到大约一千个，其中所有误识别的都排在顶部（红色背景上）。左侧的比例让你大致了解分类器的准确性（正确识别测试数据的百分比）
 
-<img src="./article_img/1-3.png/">
+<img width='50%' src="./article_img/1-3.png/">
 
 为了驱动训练，我们将定义一个损失函数，即一个值，代表系统识别数字误差程度，并尝试将它最小化。损失函数的选择（这里，“交叉熵”）将在后面讲解。你在这看到损失随训练和测试数据的训练进度而下降：那很好。它意味着神经网络在学习。x轴代表通过学习循环的迭代。
 
-<img src="./article_img/1-4.png/">
+<img width='50%' src="./article_img/1-4.png/">
 
 准确率是简单的正确识别数字的百分比。他是在训练和测试集合中计算得到的。你将看到它上升，如果训练向好。
 
-<img src="./article_img/1-5.png/">
+<img width='50%' src="./article_img/1-5.png/">
 
 完成的两个图表代表内部变量采取所有值的传播，即weights和biases随训练的进程。这里你将看到样本biases最初从0开始并最终取值大致均匀分布在-1.5和1.5之间。如果系统收敛不好，这些图表可能很有用。如果你看到weights和biases扩散到100s或1000s时，你可能会遇到问题。
 
@@ -120,11 +120,11 @@ $ python3 mnist_1.0_softmax.py
 ---
 # 四.理论：单层神经网络
 
-<img src="./article_img/4-1.png/">
+<img width='50%' src="./article_img/4-1.png/">
 
 手写数字在MNIST数据集中是28x28像素的灰度图。将它们分类的最简单方法是用28x28=784个像素作为单层神经网络的输入。
 
-<img src="./article_img/4-2.png/">
+<img width='50%' src="./article_img/4-2.png/">
 
 神经网络中的每个神经元对所有输入加权求和，添加一个称为“biases”的常量，然后通过一些非线性激活函数提供结果。
 
@@ -132,13 +132,13 @@ $ python3 mnist_1.0_softmax.py
 
 对于分类问题，一个运行良好的激活函数是softmax。在矢量上应用softmax是通过取每个元素的指数然后归一化矢量（使用任何范数，例如矢量的普通欧几里得长度）来完成的。
 
-<img src="./article_img/4-3.png/">
+<img width='50%' src="./article_img/4-3.png/">
 
 > 为什么“softmax”叫做softmax？指数是一个急剧增加的函数。它将增加向量元素之间的差异。它还可以快速生成大值。当您对矢量进行归一化时，最大的元素（其支配范数）将被归一化为接近1的值，而所有其他元素将最终除以较大的值并归一化为接近0的值。结果向量清晰的显示哪个是其最大元素“max”，但保留其值的原始相对顺序，因此“soft”。
 
 我们现在使用矩阵乘法将这个单层神经元的行为概括为一个简单公式。让我们直接将一百个图片的“小批量”作为输入，产生一百个预测（十个元素的向量）作为输出。
 
-<img src="./article_img/4-4.png/">
+<img width='50%' src="./article_img/4-4.png/">
 
 使用weights矩阵W中的第一列矩阵，我们计算第一张图的所有像素的加权和。该总和对应第一个神经元。使用第二列的weights，我们对第二列神经元做同样的事，以此类推直到第十个神经元。然后我们能重复操作其余的99个图片。如果我们将包含100个图片的矩阵称之为X，则在100个图片上计算所有10个神经元的加权和就是简单的XxW（矩阵乘法）。
 
@@ -148,7 +148,7 @@ $ python3 mnist_1.0_softmax.py
 
 我们最终应用softmax激活函数并获得描述单层神经网络的公式，应用到100个图片：
 
-<img src="./article_img/4-5.png/">
+<img width='50%' src="./article_img/4-5.png/">
 
 > 顺便说下，什么是“张量”？
 > 张量类似矩阵，但有任意数量的维度。一个维度的张量是一个向量。两个维度张量是矩阵。并且你可以用3、4、5或更多维度到张量。
@@ -160,7 +160,7 @@ $ python3 mnist_1.0_softmax.py
 
 任何距离都可行，普通欧几里得距离就好，但对分类问题的一个距离，叫做“交叉熵”的更高效。
 
-<img src="./article_img/5-1.png/">
+<img width='50%' src="./article_img/5-1.png/">
 
 > "独热"编码意为你用一个10个值的向量表示标签“6”，所有值都是0，但第6个值是1，这很方便，因为格式非常类似于我们的神经网络输出的ts预测，也是10个值的向量。
 
@@ -168,11 +168,11 @@ $ python3 mnist_1.0_softmax.py
 
 交叉熵是weights、biases、训练图片像素和已知标签的函数。
 
-如果我们计算交叉熵相对所有weights和biases的偏导数，我们获得“梯度”，他是针对给定图片、标签和weights和偏差的当前值计算所得。记得我们有7850个weights和biases，所以计算梯度听起来像是很多工作。幸好，TensorFlow为我们做了。
+如果我们计算交叉熵相对所有weights和biases的偏导数，我们获得“梯度”，他是针对给定图片、标签和weights和biases的当前值计算所得。记得我们有7850个weights和biases，所以计算梯度听起来像是很多工作。幸好，TensorFlow为我们做了。
 
 梯度的数学性质是它指向“上”，因为我们要到达交叉熵的低点，所以我们去反方向。我们用一个梯度函数更新weights和biases，并且使用下一批训练图片做相同的事。希望这能让我们去交叉熵为最小的坑的底部。
 
-<img src="./article_img/5-2.png/">
+<img width='50%' src="./article_img/5-2.png/">
 
 在此图中，交叉熵代表2个weights的函数。实际上更多。梯度下降跟随最陡路径到局部最小值。训练图片是在每个迭代时改变的，以便我们收敛到适用于所有图片的局部最小值。
 
@@ -194,7 +194,7 @@ $ python3 mnist_1.0_softmax.py
 
 单层神经网络的代码已经写好。请打开mnist_1.0_softmax.py文件并按说明进行操作。
 
->你在本章的任务是明白起始代码，一边之后改进。
+>你在本章的任务是明白起始代码，以便之后改进。
 
 你将看到说明和文件中入门代码仅有细微差别。它们对应于用于可视化的功能，并为这些功能在注释中标记。你可以忽略它们。
 
@@ -224,11 +224,11 @@ Y = tf.nn.softmax(tf.matmul(tf.reshape(X, [-1, 784]), W) + b)
 Y_ = tf.placeholder(tf.float32, [None, 10])
 
 # 损失函数
-cross_entropy = -tf.reduce_sum(Y_ x tf.log(Y))
+cross_entropy = -tf.reduce_sum(Y_ * tf.log(Y))
 
 # 批量中找到正确答案的百分比
-is_correct = tf.equal(tf.argmax(Y,1), tf.argmax(Y_,1))
-accuracy = tf.reduce_mean(tf.cast(is_correct, tf.float32))
+is_correct = tf.equal(tf.argmax(Y,1), tf.argmax(Y_,1)) #equal对比两个向量每个元素返回bool类型的tensor，argmax取某轴最大值，0列1行
+accuracy = tf.reduce_mean(tf.cast(is_correct, tf.float32)) #cast类型转换。reduce_mean按轴算平均值
 ```
 第一行是单层神经网络的模型。该公式是我们在之前理论章节建立的那个。**tf.reshape**命令将我们的28x28的图片转化到784个像素到单矢量中。重塑命令中“-1”表示“计算机，计算出的，这里只是一种可能性”。实践中，它将是小批量中图片的数量。
 
@@ -287,20 +287,20 @@ a,c = sess.run([accuracy, cross_entropy], feed=test_data)
 无论如何，只要执行**Session.run**命令，它返回的值是些Numpy张量，即Numpy可以使用的**numpy.ndarray**对象以及基于它的所有科学编译库。这就是为此实验构建的实时可视化，使用matploglib，这是一个基于Numpy的标准Python绘图库。
 
 这个简单的模型已经识别92%的数字。不错，但你现在将显著改善它。
-<img src="./article_img/5-3.png/">
+<img width='50%' src="./article_img/5-3.png/">
 
 ---
 # 七.实验：添加层
 
-<img src="./article_img/7-1.png/">
+<img width='50%' src="./article_img/7-1.png/">
 
 为了提高识别准确率，我们将添加更多的层到神经网络。第二层的神经元，不是计算像素加权和，而是计算从上一层神经元输出的加权和。例如这是一个5层全联接神经网络：
 
-<img src="./article_img/6-2.png/">
+<img width='50%' src="./article_img/6-2.png/">
 
 我们一直将softmax作为激活函数放在最后一层上，因为它对于分类做的最好。然而在中间层我们将使用最经典的激活函数：S形（sigmoid）：
 
-<img src="./article_img/6-3.png/">
+<img width='50%' src="./article_img/6-3.png/">
 
 > 你在本节的任务是添加一个或两个中间层到你的模型，以提高它的性能。<br/>
 <br/>
@@ -330,22 +330,22 @@ Y  = tf.nn.softmax(tf.matmul(Y1, W2) + B2)
 
 这样，现在用2个中间层（200和100个神经元）你可以将你到网络准确率推至97%以上。
 
-<img src="./article_img/6-4.png/">
+<img width='50%' src="./article_img/6-4.png/">
 
 ---
 # 八.实验：特别当心深层网络
 
-<img src="./article_img/8-1.png/">
+<img width='50%' src="./article_img/8-1.png/">
 
 随着层的添加，神经网络的收敛会更加困难。但我们今天知道如何使他们表现出来。这有一对单线更新，如果你看到像这样一个准确的曲线，它将帮助你。
 
-<img src="./article_img/6-5.png/">
+<img width='50%' src="./article_img/6-5.png/">
 
 ### RELU激活函数
 
 sigmoid激活函数其实在深层网络中是相当困难的。它压缩所有值到0和1之间，当你这样反复这样做，神经元输出和它们的梯度会完全消失。他是提到的历史原因，但现代网络使用RELU（线性整流单元）看起来像这样：
 
-<img src="./article_img/6-6.png/">
+<img width='50%' src="./article_img/6-6.png/">
 
 > 更新1/4:现在用RELUs替换你所有的sigmoids，你将获得更快的初始收敛，并在之后添加层时避免出现问题。简单的在你的代码里用**tf.nn.relu**替换**tf.nn.sigmoid**。
 
@@ -367,7 +367,7 @@ B = tf.Variable(tf.ones([L])/10)
 
 ### NaN???
 
-<img src="./article_img/6-7.png/">
+<img width='50%' src="./article_img/6-7.png/">
 
 如果你看到你的精度曲线崩溃，并且控制台输出NaN作为交叉熵，不要慌，你尝试计算log(0),确定哪一个是非数字（NaN）。记得交叉熵包含log，在softmax层的输出上计算。因为softmax实质上是一个指数，永远非零，我们应该没问题，但对于32位精度浮点运算，exp(-100)已是真正的零。
 
@@ -405,17 +405,17 @@ cross_entropy = tf.reduce_mean(cross_entropy)x100
 ---
 # 九.实验：学习速率衰减
 
-<img src="./article_img/9-1.png/">
+<img width='50%' src="./article_img/9-1.png/">
 
 有2、3或4个中间层，你现在能接近98%准确率，如果你推动迭代到5000或之外，但你将看到结果非常不一致。
 
-<img src="./article_img/9-2.png/">
+<img width='50%' src="./article_img/9-2.png/">
 
 这些曲线确实杂乱，同时看下测试准确度：它上下跳动整整一个百分点。这意味着即使0.003的学习速率，我们也会走到太快。但我们不能仅仅将学习速率除以10，或者训练将带入永远。好的方案是例如快速启动并且将学习速率指数级衰减到0.0001。
 
 小改变的影响是可观的。你看到大量的噪音消失并且测试精度在持续的方式中超过98%。
 
-<img src="./article_img/9-3.png/">
+<img width='50%' src="./article_img/9-3.png/">
 
 再看下训练精度曲线。它现在到达100%穿过几个时期（1个时期=500个迭代=在所有训练图片上训练一次）。首次，我们能够学习到完美识别训练图片。
 
@@ -430,20 +430,20 @@ cross_entropy = tf.reduce_mean(cross_entropy)x100
 <br/>
 解决方案可以在** mnist_2.1_five_layers_relu_lrdecay.py**文件中找到。如果你卡住了就用它。
 
-<img src="./article_img/9-4.png/">
+<img width='50%' src="./article_img/9-4.png/">
 
 ---
 # 十.实验：退出，过拟合
 
-<img src="./article_img/10-1.png/">
+<img width='50%' src="./article_img/10-1.png/">
 
 你将注意到，测试和训练数据的交叉熵曲线在几千次迭代后开始断开连接。学习算法仅用于训练数据，并且优化相应的训练交叉熵。它永远看不到测试数据，所以一段时间后它的工作不再对测试交叉熵产生影响就不足为奇了，它会停止下降，有时甚至会反弹回来。
 
-<img src="./article_img/9-5.png/">
+<img width='50%' src="./article_img/9-5.png/">
 
 这不会立即影响模型的真实识别功能，它会避免你运行太多迭代，这通常表明训练不再具有积极作用。此断开通常标记为“overfitting”，当你看到它时，你可以尝试应用叫做“dropout”的正则化技术。
 
-<img src="./article_img/9-6.png/">
+<img width='50%' src="./article_img/9-6.png/">
 
 在dropout中，在每次训练迭代中，你从网络中随机终止神经元。您选择一个保留神经元的pkeep概率，通常在50％和75％之间，然后在训练循环的每次迭代中，您随机移除具有所有weights和biases的神经元。每次迭代都会终止不同的神经元（并且你还需要按比例放大剩余神经元的输出，以确保下一层的激活不会发生变化）。当你测试你的网络性能时，当然你会把所有的神经元都放回去（**pkeep=1**）。
 
@@ -463,17 +463,17 @@ Y = tf.nn.softmax(tf.matmul(Y1d, W2) + B2)
 <br/>
 解决方案可以在文件(mnist_2.2_five_layers_relu_lrdecay_dropout.py)中找到.如果你被困住就用它。
 
-<img src="./article_img/9-7.png/">
+<img width='50%' src="./article_img/9-7.png/">
 
 您应该看到这样使测试损失大部分恢复到控制之下，干扰再次出现（不出意外地给出了droout如何工作），但至少在这种情况下，测试精度保持不变，这有点令人失望。肯定有其他“过度拟合”的原因。
 <br/>
 在我们继续之前，回顾一下迄今为止我们尝试过的所有工具：
 
-<img src="./article_img/9-8.png/">
+<img width='50%' src="./article_img/9-8.png/">
 
 无论我们做什么，我们似乎都无法以显着的方式突破98％的瓶颈，并且我们的损失曲线仍然表现出“overfitting”的断开。什么是“过度拟合”？overfitting发生在神经网络学习不好时，在训练样本中适合，但在真实数据上不太好的方式，有一些正规化技术，如dropout，可以迫使它以更好的方式学习，但过度拟合也有更深层次的根源。
 
-<img src="./article_img/10-6.png/">
+<img width='50%' src="./article_img/10-6.png/">
 
 当神经网络对于手头的问题具有太多的自由度时，就会发生基本过度拟合。想象一下，我们有这么多神经元，网络可以将所有训练图像存储在其中，然后通过模式匹配识别它们。它会在现实世界的数据上完全失败。神经网络必须受到某种程度的约束，以便强制归纳它在训练期间学到的东西。
 
@@ -486,7 +486,7 @@ Y = tf.nn.softmax(tf.matmul(Y1d, W2) + B2)
 ---
 # 十一.理论：卷积网络
 
-<img src="./article_img/11-1.png/">
+<img width='50%' src="./article_img/11-1.png/">
 
 在convolutional神经网络的层中，一个“神经元”仅在图像的一个小区域上对其正上方的像素进行加权求和。然后它的默认行为通过添加biases并通过其激活功能提供结果。最大的区别是每个神经元重复使用相同的weights，而在之前看到的完全连接的网络中，每个神经元都有自己的一组weights。
 
@@ -494,41 +494,41 @@ Y = tf.nn.softmax(tf.matmul(Y1d, W2) + B2)
 
 要使用4x4大小的块和一个彩色图像作为输入生成一个输出值平面，如在动画中，我们需要4x4x3 = 48个weights。这还不够。为了增加更多的自由度，我们用不同的weights集重复同样的事情。
 
-<img src="./article_img/11-2.png/">
+<img width='50%' src="./article_img/11-2.png/">
 
 通过向张量添加维度，可以将两组（或更多组）weights改写为一组，这给出了convolutional层的weights张量的通用形状。由于输入和输出通道的数量是参数，我们可以开始堆叠并链接convolutional层。
 
-<img src="./article_img/11-3.png/">
+<img width='50%' src="./article_img/11-3.png/">
 
 最后一个遗留问题。我们仍然需要将信息归纳。在最后一层，我们仍然只需要10个神经元来处理10类数字。传统上，这是通过“max-pooling”层完成的。即使今天有更简单的方法，“max-pooling”有助于直观地理解convolutional网络的运作方式：如果你假设在训练期间，我们的权重块演变成可识别基本形状（水平和垂直线条，曲线......）的过滤器，然后归纳出有用信息的一种方法是通过层保持最大强度识别形状的输出。在实践中，在max-pool层中，神经元输出以2x2的组处理，并且仅保留一个最大值。
 
 但有一种更简单的方法：如果您使用2个像素而不是1的步幅在图像上滑动块，您也获得较少的输出值。事实证明这种方法同样有效，并且今天的convolutional网络只使用convolutional层。
 
-<img src="./article_img/11-4.png/">
+<img width='50%' src="./article_img/11-4.png/">
 
 让我们建立一个识别手写数字的convolutional网络。我们将在顶部使用三个convolutional层，在底部使用传统的softmax读出层，并将它们与一个完全连接的层连接：
 
-<img src="./article_img/11-5.png/">
+<img width='50%' src="./article_img/11-5.png/">
 
 请注意，第二个和第三个convolutional层的步长为2，这就解释了为什么它们将输出值的数量从28x28降低到14x14然后降低到7x7。完成层的大小调整，使每层神经元的数量大约下降两倍：28x28x4≈3000 → 14x14x8≈1500 → 7x7x12≈500 → 200.跳转到下一部分实现。
 
 ---
 # 十二.实验：一个卷积网络
 
-<img src="./article_img/12-1.png/">
+<img width='50%' src="./article_img/12-1.png/">
 
 要将我们的代码切换到convolutional模型，我们需要为convolutional层定义适当的weights张量，然后将convolutional层添加到模型中。
 
 我们已经看到convolutional层需要以下形状的weights张量。以下是用于初始化的TensorFlow语法：
 
-<img src="./article_img/12-2.png/">
+<img width='50%' src="./article_img/12-2.png/">
 
 ```Python
 W = tf.Variable(tf.truncated_normal([4, 4, 3, 2], stddev=0.1))
 B = tf.Variable(tf.ones([2])/10) # 2 is the number of output channels
 ```
 
-可以使用tf.nn.conv2d函数在TensorFlow中实现convolutional层，使用该函数提供的weights在两个方向上扫描输入的图像。这只是神经元的加权和部分。您仍然需要添加偏差并通过激活函数提供结果。
+可以使用tf.nn.conv2d函数在TensorFlow中实现convolutional层，使用该函数提供的weights在两个方向上扫描输入的图像。这只是神经元的加权和部分。您仍然需要添加biases并通过激活函数提供结果。
 
 ```Python
 stride = 1  # output is still 28x28
@@ -544,7 +544,7 @@ Y = tf.nn.relu(Ycnv + B)
 
 你的模型应该能够轻松打破98％的瓶颈，最终只能达到99％以下的头发（图表中训练精度形似头发）。我们不能这么近！看看测试交叉熵曲线。你的脑海里有一个解决方案吗？
 
-<img src="./article_img/12-3.png/">
+<img width='50%' src="./article_img/12-3.png/">
 
 ---
 # 十三.实验：99%比赛
@@ -555,19 +555,19 @@ Y = tf.nn.relu(Ycnv + B)
 
 因此，让我们稍微提高patch大小，将convolutional层中的patch数量从4,8,12增加到6,12,24，然后在完全连接层上添加dropout。为什么不在convolutional层？其神经元复用相同weights，因此在一次训练迭代期间通过冻结一些weights来有效地工作，这样dropout不适用于它们。
 
-<img src="./article_img/13-1.png/">
+<img width='50%' src="./article_img/13-1.png/">
 
 > 去吧，打破99％的限制。如上图所示增加patch大小和通道数量，并在convolutional层上添加dropout。
 > <br/>
 > 解决方案可以在文件中找到**mnist_3.1_convolutional_bigger_dropout.py**。如果你卡住使用它。
 
-<img src="./article_img/12-4.png/">
+<img width='50%' src="./article_img/12-4.png/">
 
 上图所示的模型在10,000个测试数字中仅损失了72个。您可以在MNIST网站上找到的世界纪录大约为99.7％。我们的模型使用100行Python / TensorFlow构建，距离它只有0.4个百分点。
 
 总而言之，这是不同的dropout做到了我们更大的convolutional网络。为神经网络提供额外的自由度，使最终精度从98.9％提高到99.1％。增加dropout不仅驯服了测试损失，而且让我们安全航行超过99％，甚至达到99.3％。
 
-<img src="./article_img/12-6.png/">
+<img width='50%' src="./article_img/12-6.png/">
 
 ---
 # 十四.在强大硬件上的云中训练：ML引擎
@@ -583,7 +583,7 @@ Y = tf.nn.relu(Ycnv + B)
 
 您已经构建了第一个神经网络，并将其一直训练到99％的准确度。沿途学到的技术并非特定于MNIST数据集，实际上它们在使用神经网络时被广泛使用。作为临别礼物，这里是实验室的“悬崖笔记”卡片，卡通版。你可以用它来记住你学到的东西：
 
-<img src="./article_img/15-1.png/">
+<img width='50%' src="./article_img/15-1.png/">
 
 ### 下一步
 
