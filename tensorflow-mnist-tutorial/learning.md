@@ -224,7 +224,7 @@ Y = tf.nn.softmax(tf.matmul(tf.reshape(X, [-1, 784]), W) + b)
 Y_ = tf.placeholder(tf.float32, [None, 10])
 
 # 损失函数
-cross_entropy = -tf.reduce_sum(Y_ * tf.log(Y))
+cross_entropy = -tf.reduce_sum(Y_ * tf.log(Y)) #reduce_sum按轴求和，默认求所有元素和
 
 # 批量中找到正确答案的百分比
 is_correct = tf.equal(tf.argmax(Y,1), tf.argmax(Y_,1)) #equal对比两个向量每个元素返回bool类型的tensor，argmax取某轴最大值，0列1行
