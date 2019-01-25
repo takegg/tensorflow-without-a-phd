@@ -219,7 +219,7 @@ init = tf.initialize_all_variables()
 ### mnist_1.0_softmax.py
 ```Python
 # 模型
-Y = tf.nn.softmax(tf.matmul(tf.reshape(X, [-1, 784]), W) + b)
+Y = tf.nn.softmax(tf.matmul(tf.reshape(X, [-1, 784]), W) + b)#matmul矩阵乘法
 # 用于正确标签的占位符
 Y_ = tf.placeholder(tf.float32, [None, 10])
 
@@ -309,7 +309,7 @@ a,c = sess.run([accuracy, cross_entropy], feed=test_data)
 要添加层，对于中间层你需要额外的weights矩阵和一个额外的biases向量：
 
 ```Python
-W1 = tf.Variable(tf.truncated_normal([28x28, 200] ,stddev=0.1))
+W1 = tf.Variable(tf.truncated_normal([28x28, 200] ,stddev=0.1))#truncated_normal生成指定维度，平均值，标准差的随机矩阵。
 B1 = tf.Variable(tf.zeros([200]))
 
 W2 = tf.Variable(tf.truncated_normal([200, 10], stddev=0.1))
@@ -421,7 +421,7 @@ cross_entropy = tf.reduce_mean(cross_entropy)x100
 
 > 请添加学习速率衰减到你的代码。在你的模型中，使用以下公式代替我们之前在AdamOptimizer中使用的固定学习速率。
 <br/>
-**lr = 0.0001 + tf.train.exponential_decay(0.003, step, 2000, 1/math.e)**
+**lr = 0.0001 + tf.train.exponential_decay(0.003, step, 2000, 1/math.e)** #exponential_decay指数衰减法
 <br/>
 它实践了学习速率从0.003到0.0001呈指数衰减。<br/>
 你将需要在每个迭代时通过**feed_dict**参数将step参数传递给模型。你将像这样需要一个新的占位符：
